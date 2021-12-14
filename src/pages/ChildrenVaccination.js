@@ -118,57 +118,57 @@ const ChildrenVaccination = () => {
             />
           );
         }}
-        editable={{
-          onRowAdd: (newData) =>
-            new Promise((resolve, reject) => {
-              axios.post(`${baseURL}/children`, newData).then(({ data }) => {
-                setTimeout(() => {
-                  setDatas([data.savedVaccine, ...datas]);
-                  resolve();
-                }, 1000);
-              });
-            }),
-          onRowUpdate: (newData, oldData) =>
-            new Promise((resolve, reject) => {
-              axios
-                .put(`${baseURL}/children/${oldData._id}`, {
-                  vaccineName: newData.vaccineName,
-                  vaccineUse: newData.vaccineUse,
-                  barangay: newData.barangay,
-                  schedule: newData.schedule,
-                })
-                .then(({ data }) => {
-                  console.log("Vaccine Updated Successfully");
+        // editable={{
+        //   onRowAdd: (newData) =>
+        //     new Promise((resolve, reject) => {
+        //       axios.post(`${baseURL}/children`, newData).then(({ data }) => {
+        //         setTimeout(() => {
+        //           setDatas([data.savedVaccine, ...datas]);
+        //           resolve();
+        //         }, 1000);
+        //       });
+        //     }),
+        //   onRowUpdate: (newData, oldData) =>
+        //     new Promise((resolve, reject) => {
+        //       axios
+        //         .put(`${baseURL}/children/${oldData._id}`, {
+        //           vaccineName: newData.vaccineName,
+        //           vaccineUse: newData.vaccineUse,
+        //           barangay: newData.barangay,
+        //           schedule: newData.schedule,
+        //         })
+        //         .then(({ data }) => {
+        //           console.log("Vaccine Updated Successfully");
 
-                  console.log(data.updatedVacine);
-                });
+        //           console.log(data.updatedVacine);
+        //         });
 
-              setTimeout(() => {
-                const dataUpdate = [...datas];
-                const index = oldData.tableData.id;
-                dataUpdate[index] = newData;
-                setDatas([...dataUpdate]);
+        //       setTimeout(() => {
+        //         const dataUpdate = [...datas];
+        //         const index = oldData.tableData.id;
+        //         dataUpdate[index] = newData;
+        //         setDatas([...dataUpdate]);
 
-                resolve();
-              }, 1000);
-            }),
-          onRowDelete: (oldData) =>
-            new Promise((resolve, reject) => {
-              axios
-                .delete(`${baseURL}/children/${oldData._id}`)
-                .then((response) => {
-                  console.log("Deleted Successfully");
-                });
+        //         resolve();
+        //       }, 1000);
+        //     }),
+        //   onRowDelete: (oldData) =>
+        //     new Promise((resolve, reject) => {
+        //       axios
+        //         .delete(`${baseURL}/children/${oldData._id}`)
+        //         .then((response) => {
+        //           console.log("Deleted Successfully");
+        //         });
 
-              setTimeout(() => {
-                const dataDelete = [...datas];
-                const index = oldData.tableData.id;
-                dataDelete.splice(index, 1);
-                setDatas([...dataDelete]);
-                resolve();
-              }, 1000);
-            }),
-        }}
+        //       setTimeout(() => {
+        //         const dataDelete = [...datas];
+        //         const index = oldData.tableData.id;
+        //         dataDelete.splice(index, 1);
+        //         setDatas([...dataDelete]);
+        //         resolve();
+        //       }, 1000);
+        //     }),
+        // }}
       />
     </Container>
   );

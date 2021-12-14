@@ -11,8 +11,6 @@ import MaterialTable from "material-table";
 const VaccineHelper = ({ id, title, usersArray }) => {
   const [users, setUsers] = useState(usersArray);
 
-  // console.log(users);
-
   return (
     <div style={{ padding: "50px 40px", backgroundColor: "#ebe9e9" }}>
       <MaterialTable
@@ -37,69 +35,69 @@ const VaccineHelper = ({ id, title, usersArray }) => {
           actionsColumnIndex: -1,
           addRowPosition: "first",
         }}
-        editable={{
-          onRowAdd: (newData, oldData) =>
-            new Promise((resolve, reject) => {
-              axios
-                .put(`${baseURL}/children/addVaccinatedChild/${id}`, newData)
-                .then(({ data }) => {
-                  const reversedChild = [
-                    ...data.child.vaccinatedUser,
-                  ].reverse();
+        // editable={{
+        //   onRowAdd: (newData, oldData) =>
+        //     new Promise((resolve, reject) => {
+        //       axios
+        //         .put(`${baseURL}/children/addVaccinatedChild/${id}`, newData)
+        //         .then(({ data }) => {
+        //           const reversedChild = [
+        //             ...data.child.vaccinatedUser,
+        //           ].reverse();
 
-                  setTimeout(() => {
-                    setUsers(reversedChild);
-                    resolve();
-                  }, 1000);
-                })
-                .catch((err) => {
-                  console.log(err);
-                  resolve();
-                });
-            }),
-          onRowUpdate: (newData, oldData) =>
-            new Promise((resolve, reject) => {
-              console.log(oldData);
-              axios
-                .put(`${baseURL}/children/updateVaccinatedChild/${id}`, {
-                  _id: oldData._id,
-                  ...newData,
-                })
-                .then(({ data }) => {
-                  console.log(data);
-                  // console.log(`Child updated successfully`);
-                  // console.log(data.child);
-                  setTimeout(() => {
-                    const dataUpdate = [...users];
-                    const index = oldData.tableData.id;
-                    dataUpdate[index] = newData;
-                    setUsers([...dataUpdate]);
-                    resolve();
-                  }, 1000);
-                })
-                .catch((err) => {
-                  console.log(err);
-                  resolve();
-                });
-            }),
-          onRowDelete: (oldData) =>
-            new Promise((resolve, reject) => {
-              axios
-                .put(`${baseURL}/children/deleteVaccinatedChild/${id}`, oldData)
-                .then((response) => {
-                  console.log("Deleted Successfully");
-                });
+        //           setTimeout(() => {
+        //             setUsers(reversedChild);
+        //             resolve();
+        //           }, 1000);
+        //         })
+        //         .catch((err) => {
+        //           console.log(err);
+        //           resolve();
+        //         });
+        //     }),
+        //   onRowUpdate: (newData, oldData) =>
+        //     new Promise((resolve, reject) => {
+        //       console.log(oldData);
+        //       axios
+        //         .put(`${baseURL}/children/updateVaccinatedChild/${id}`, {
+        //           _id: oldData._id,
+        //           ...newData,
+        //         })
+        //         .then(({ data }) => {
+        //           console.log(data);
+        //           // console.log(`Child updated successfully`);
+        //           // console.log(data.child);
+        //           setTimeout(() => {
+        //             const dataUpdate = [...users];
+        //             const index = oldData.tableData.id;
+        //             dataUpdate[index] = newData;
+        //             setUsers([...dataUpdate]);
+        //             resolve();
+        //           }, 1000);
+        //         })
+        //         .catch((err) => {
+        //           console.log(err);
+        //           resolve();
+        //         });
+        //     }),
+        //   onRowDelete: (oldData) =>
+        //     new Promise((resolve, reject) => {
+        //       axios
+        //         .put(`${baseURL}/children/deleteVaccinatedChild/${id}`, oldData)
+        //         .then((response) => {
+        //           console.log("Deleted Successfully");
+        //         });
 
-              setTimeout(() => {
-                const dataDelete = [...users];
-                const index = oldData.tableData.id;
-                dataDelete.splice(index, 1);
-                setUsers([...dataDelete]);
+        //       setTimeout(() => {
+        //         const dataDelete = [...users];
+        //         const index = oldData.tableData.id;
+        //         dataDelete.splice(index, 1);
+        //         setUsers([...dataDelete]);
 
-                resolve();
-              }, 1000);
-            }),
-        }}
+        //         resolve();
+        //       }, 1000);
+        //     }),
+        // }}
       />
     </div>
   );

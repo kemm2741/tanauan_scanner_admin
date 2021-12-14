@@ -3,6 +3,9 @@ import React, { useState, useEffect, useContext } from "react";
 // ! Base URL
 import { baseURL } from "../../utils/baseURL";
 
+// Import axios
+import axios from "axios";
+
 // React Router Dom
 import { useHistory } from "react-router-dom";
 
@@ -219,7 +222,20 @@ const Login = () => {
                 });
 
                 if (email) {
-                  Swal.fire(`Entered email: ${email}`);
+                  axios
+                    .post(
+                      `${baseURL}/admin/forgot-password-admin
+                  `,
+                      { email }
+                    )
+                    .then(({ data }) => {
+                      Swal.fire(
+                        `New password sent, please check your email address!`
+                      );
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                    });
                 }
               }}
               className={classes.forgotPasswordContainer}
