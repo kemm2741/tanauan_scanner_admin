@@ -100,9 +100,7 @@ const Login = () => {
   let history = useHistory();
 
   const authContext = useContext(AuthContext);
-
   const { isAuthenticatedLogin, isLoading, errorLogin, login } = authContext;
-
   const classes = useStyles();
   const initialState = {
     email: "",
@@ -145,16 +143,18 @@ const Login = () => {
     setLoginData(initialState);
   };
 
+  // Const reset passsword loading
+  const [isLoadingEmail, setIsLoadingEmail] = useState(false);
+
   useEffect(() => {
     if (isAuthenticatedLogin) {
-      Swal.fire("Success Login", "Welcome to DashBoard", "success");
       history.push("/");
     }
   }, [isAuthenticatedLogin]);
 
   return (
     <div className={classes.loginContainer}>
-      {isLoading ? (
+      {isLoading || isLoadingEmail ? (
         <div className={classes.loadingContainer}>
           <CircularProgress />
         </div>
@@ -222,20 +222,22 @@ const Login = () => {
                 });
 
                 if (email) {
-                  axios
-                    .post(
-                      `${baseURL}/admin/forgot-password-admin
-                  `,
+                  try {
+                    setIsLoadingEmail(true);
+                    const { data } = await axios.post(
+                      `${baseURL}/admin/forgot-password-admin`,
                       { email }
-                    )
-                    .then(({ data }) => {
-                      Swal.fire(
-                        `New password sent, please check your email address!`
-                      );
-                    })
-                    .catch((err) => {
-                      console.log(err);
-                    });
+                    );
+                    Swal.fire(
+                      "Success",
+                      `New password sent, please check your email address!`,
+                      "success"
+                    );
+                    setIsLoadingEmail(false);
+                  } catch (error) {
+                    setIsLoadingEmail(false);
+                    Swal.fire("Error", `${error.response.data.msg}`, "error");
+                  }
                 }
               }}
               className={classes.forgotPasswordContainer}

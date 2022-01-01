@@ -229,13 +229,11 @@ const AddRhuUser = () => {
         form
       );
 
-      console.log(data);
-
       history.push("/rhuUser");
-
+      Swal.fire("Success", `New RHU User Created!`, "success");
       setIsLoading(false);
     } catch (error) {
-      console.log(error);
+      Swal.fire("Error", `${error.response.data.msg}`, "error");
       setIsLoading(false);
     }
 
@@ -315,7 +313,7 @@ const AddRhuUser = () => {
                       <KeyboardDatePicker
                         margin="normal"
                         id="date-picker-dialog"
-                        label="Date picker dialog"
+                        label="Birthday"
                         format="MM/dd/yyyy"
                         value={selectedDate}
                         onChange={handleDateChange}
@@ -348,6 +346,7 @@ const AddRhuUser = () => {
                     label="Contact"
                     variant="outlined"
                     fullWidth
+                    type="number"
                   />
                 </Grid>
 

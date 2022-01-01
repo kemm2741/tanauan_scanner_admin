@@ -289,22 +289,22 @@ const Branches = () => {
                     resolve();
                   });
               }),
-            onRowDelete: (oldData) =>
-              new Promise((resolve, reject) => {
-                axios
-                  .delete(`${baseURL}/branch/${oldData._id}`)
-                  .then((response) => {
-                    setTimeout(() => {
-                      fetchBranch();
-                      Swal.fire("Success", `${response.data.msg}`, "success");
-                      resolve();
-                    }, 1000);
-                  })
-                  .catch((error) => {
-                    Swal.fire("Error", `${error.response.data.msg}`, "error");
-                    resolve();
-                  });
-              }),
+            // onRowDelete: (oldData) =>
+            //   new Promise((resolve, reject) => {
+            //     axios
+            //       .delete(`${baseURL}/branch/${oldData._id}`)
+            //       .then((response) => {
+            //         setTimeout(() => {
+            //           fetchBranch();
+            //           Swal.fire("Success", `${response.data.msg}`, "success");
+            //           resolve();
+            //         }, 1000);
+            //       })
+            //       .catch((error) => {
+            //         Swal.fire("Error", `${error.response.data.msg}`, "error");
+            //         resolve();
+            //       });
+            //   }),
           }}
         />
       </div>

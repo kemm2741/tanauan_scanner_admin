@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import Swal from "sweetalert2";
 
-//
+// Material Table
 import MaterialTable from "material-table";
 
 // Import axios
@@ -22,9 +22,7 @@ const ArchievedUser = () => {
       const { data } = await axios.get(
         "https://tanuan-backend.herokuapp.com/api/user/get-archived-user"
       );
-
       setData(data.users);
-
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -54,7 +52,7 @@ const ArchievedUser = () => {
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!",
+                confirmButtonText: "Activate Account",
               }).then((result) => {
                 if (result.isConfirmed) {
                   axios
@@ -67,10 +65,16 @@ const ArchievedUser = () => {
                     .then(({ data }) => {
                       console.log(data);
                       fetchArchievedUser();
+                      Swal.fire("Success", `User is now activated!`, "success");
                     })
                     .catch((err) => {
                       console.log(err);
                       fetchArchievedUser();
+                      Swal.fire(
+                        "Success",
+                        `${err.response.data.msg}`,
+                        "success"
+                      );
                     });
                 }
               });

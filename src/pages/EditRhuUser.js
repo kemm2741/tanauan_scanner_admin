@@ -230,11 +230,11 @@ const EditRhuUser = () => {
         form
       );
 
-      console.log(data);
-
+      Swal.fire("Success", `Account updated!`, "success");
       history.push("/rhuuser");
       setIsLoading(false);
     } catch (error) {
+      Swal.fire("Error", `${error.response.data.msg}`, "error");
       console.log(error);
       setIsLoading(false);
     }

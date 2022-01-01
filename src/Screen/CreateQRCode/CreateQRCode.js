@@ -90,16 +90,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(1, 3, 2),
   },
-  // qrDiv: {
-  //   display: "flex",
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  //   flexDirection: "column",
-  // },
-  // qrButton: {
-  //   marginTop: "30px",
-  // },
-  // qrCodeText: { textAlign: "center" },
+
   qrLogo: {
     width: "70px",
     height: "70px",
@@ -245,9 +236,9 @@ function CreateQRCode() {
       return Swal.fire("Error ", "Please enter sex", "error");
     }
 
-    if (age === "") {
-      return Swal.fire("Error ", "Please enter your age", "error");
-    }
+    // if (age === "") {
+    //   return Swal.fire("Error ", "Please enter your age", "error");
+    // }
 
     if (barangay === "") {
       return Swal.fire("Error ", "Please enter your barangay", "error");
@@ -266,20 +257,6 @@ function CreateQRCode() {
     }
 
     createUser(barangay, name, lastName);
-
-    // ? Gin tangal kay redundant
-    // Swal.fire({
-    //   title: "Double Check!",
-    //   text: "Please verify your credentials for no errors",
-    //   icon: "warning",
-    //   showCancelButton: true,
-    //   confirmButtonColor: "#28A745",
-    //   cancelButtonColor: "#d33",
-    //   confirmButtonText: "Confirm",
-    // }).then((result) => {
-    //   if (result.isConfirmed) {
-    //   }
-    // });
   };
 
   const createUser = async (barangay, name, lastName) => {
@@ -298,11 +275,10 @@ function CreateQRCode() {
       // Complete Data na
       const batak = {
         ...userData,
+        age: calculateAge(selectedBirthDay),
         vaccineSchedule: availableVaccineObjectId[0]._id,
         birthday: selectedBirthDay,
       };
-
-      console.log();
 
       const { data } = await axios.post(
         `https://tanuan-backend.herokuapp.com/api/user/createQRCode`,
@@ -325,24 +301,27 @@ function CreateQRCode() {
         lastName,
       };
 
-      // Setting QR Code Details Optional
       setQrCode(qrUserDetails);
       setOpen(true);
-
       setIsLoading(false);
-      // Succes Creating User
-      // Swal.fire(
-      //   "Register Successfully",
-      //   "Please check your email address for QR code",
-      //   "success"
-      // );
     } catch (error) {
-      Swal.fire("Error Registering", "Email is Already Registered", "error");
+      Swal.fire("Error Registering", `Something went wrong`, "error");
       setIsLoading(false);
     }
 
     // Reset DATA
     setUserData(initalState);
+  };
+
+  const calculateAge = (date) => {
+    const today = new Date();
+    const birthDate = new Date(date); // create a date object directly from dob1 argument
+    let age_now = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age_now--;
+    }
+    return age_now;
   };
 
   // Fetch Barangays
@@ -601,7 +580,7 @@ function CreateQRCode() {
                       <KeyboardDatePicker
                         margin="normal"
                         id="date-picker-dialog"
-                        label="Date picker dialog"
+                        label="Birthday"
                         format="MM/dd/yyyy"
                         value={selectedBirthDay}
                         onChange={handleChangeBirthDay}
@@ -641,18 +620,6 @@ function CreateQRCode() {
 
                   <Grid xs={12} sm={6} item>
                     <TextField
-                      value={userData.age}
-                      onChange={handleOnChange}
-                      name="age"
-                      label="Age"
-                      variant="outlined"
-                      fullWidth
-                      type="number"
-                    />
-                  </Grid>
-
-                  <Grid xs={12} sm={6} item>
-                    <TextField
                       value={userData.barangay}
                       onChange={handleOnChange}
                       name="barangay"
@@ -669,7 +636,7 @@ function CreateQRCode() {
                     </TextField>
                   </Grid>
 
-                  <Grid xs={12} sm={6} item>
+                  <Grid xs={12} sm={12} item>
                     <TextField
                       value={userData.zone}
                       onChange={handleOnChange}

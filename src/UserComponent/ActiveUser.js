@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 import Swal from "sweetalert2";
 
-//
 import MaterialTable from "material-table";
 
 // Import axios
@@ -20,9 +19,6 @@ const ActiveUser = () => {
         "https://tanuan-backend.herokuapp.com/api/user"
       );
       setData(data.users);
-
-      console.log(data);
-
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -53,8 +49,8 @@ const ActiveUser = () => {
             tooltip: "Delete User",
             onClick: (event, rowData) => {
               Swal.fire({
-                title: "Are you sure you want delete the user?",
-                // text: "You won't be able to revert this!",
+                title: "Are you sure?",
+                text: "you want delete the user",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
@@ -67,11 +63,11 @@ const ActiveUser = () => {
                       `https://tanuan-backend.herokuapp.com/api/user/${rowData._id}`
                     )
                     .then(({ data }) => {
-                      console.log(data);
+                      Swal.fire("Success", `User is now archived!`, "success");
                       fetchActiveUser();
                     })
                     .catch((err) => {
-                      console.log(err);
+                      Swal.fire("Error", `${err.response.data.msg}`, "error");
                       fetchActiveUser();
                     });
                 }

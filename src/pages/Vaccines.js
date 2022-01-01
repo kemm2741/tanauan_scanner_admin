@@ -31,8 +31,6 @@ import Fade from "@material-ui/core/Fade";
 import {
   ResponsiveContainer,
   ComposedChart,
-  Line,
-  Area,
   Bar,
   XAxis,
   YAxis,
@@ -106,6 +104,7 @@ const Vaccine = () => {
       field: "date",
       editable: "never",
       type: "date",
+      export: false,
       dateSetting: {
         format: "dd/MM/yyyy",
       },
@@ -239,7 +238,6 @@ const Vaccine = () => {
       });
 
       fetchVaccine();
-
       Swal.fire("Success", `Vaccine Added`, "success");
     } catch (error) {
       Swal.fire("Error", `${error.response.data.msg}`, "error");
@@ -433,29 +431,29 @@ const Vaccine = () => {
               />
             );
           }}
-          editable={{
-            onRowDelete: (oldData) =>
-              new Promise((resolve, reject) => {
-                axios
-                  .delete(`${baseURL}/vaccine/${oldData._id}`)
-                  .then(({ data }) => {
-                    setTimeout(() => {
-                      const dataDelete = [...datas];
-                      const index = oldData.tableData.id;
-                      dataDelete.splice(index, 1);
-                      setDatas([...dataDelete]);
-
-                      Swal.fire("Success", `${data.msg}`, "success");
-
-                      resolve();
-                    }, 1000);
-                  })
-                  .catch((err) => {
-                    console.log(err);
-                    resolve();
-                  });
-              }),
-          }}
+          editable={
+            {
+              // onRowDelete: (oldData) =>
+              //   new Promise((resolve, reject) => {
+              //     axios
+              //       .delete(`${baseURL}/vaccine/${oldData._id}`)
+              //       .then(({ data }) => {
+              //         setTimeout(() => {
+              //           const dataDelete = [...datas];
+              //           const index = oldData.tableData.id;
+              //           dataDelete.splice(index, 1);
+              //           setDatas([...dataDelete]);
+              //           Swal.fire("Success", `${data.msg}`, "success");
+              //           resolve();
+              //         }, 1000);
+              //       })
+              //       .catch((err) => {
+              //         console.log(err);
+              //         resolve();
+              //       });
+              //   }),
+            }
+          }
         />
       </Container>
     </>
