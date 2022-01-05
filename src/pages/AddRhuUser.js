@@ -119,9 +119,7 @@ const AddRhuUser = () => {
   const [userData, setUserData] = useState(initalState);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [selectedDate, setSelectedDate] = React.useState(
-    new Date("2020-08-18T21:11:54")
-  );
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -164,49 +162,47 @@ const AddRhuUser = () => {
     } = userData;
 
     if (lastname === "") {
-      Swal.fire("Error", "Please enter last name", "error");
+      return Swal.fire("Error", "Please enter last name", "error");
     }
 
     if (firstname === "") {
-      Swal.fire("Error", "Please enter first name", "error");
+      return Swal.fire("Error", "Please enter first name", "error");
     }
 
     if (middlename === "") {
-      Swal.fire("Error", "Please enter middle name", "error");
+      return Swal.fire("Error", "Please enter middle name", "error");
     }
 
     if (sex === "") {
-      Swal.fire("Error", "Please enter contact", "error");
+      return Swal.fire("Error", "Please enter contact", "error");
     }
 
     if (password === "") {
-      Swal.fire("Error", "Please enter contact", "error");
+      return Swal.fire("Error", "Please enter contact", "error");
     }
 
     if (contact === "") {
-      Swal.fire("Error", "Please enter contact", "error");
+      return Swal.fire("Error", "Please enter contact", "error");
     }
     if (email === "") {
-      Swal.fire("Error", "Please enter contact email", "error");
+      return Swal.fire("Error", "Please enter contact email", "error");
     }
 
     if (address === "") {
-      Swal.fire("Error", "Please enter contact brgy", "error");
+      return Swal.fire("Error", "Please enter contact brgy", "error");
     }
 
     if (civilStatus === "") {
-      Swal.fire("Error", "Please enter civil status", "error");
+      return Swal.fire("Error", "Please enter civil status", "error");
     }
 
     if (profile === "") {
-      Swal.fire("Error", "Please enter profile", "error");
+      return Swal.fire("Error", "Please enter profile", "error");
     }
 
     if (calculateAge(new Date(selectedDate)) <= 20) {
-      Swal.fire("Error", "You must be 21 to be a vaccinator", "error");
+      return Swal.fire("Error", "You must be 21 to be a vaccinator", "error");
     }
-
-    console.log(userData);
 
     // Success No Error
     try {
@@ -317,6 +313,7 @@ const AddRhuUser = () => {
                         format="MM/dd/yyyy"
                         value={selectedDate}
                         onChange={handleDateChange}
+                        variant="outlined"
                         variant="outlined"
                         KeyboardButtonProps={{
                           "aria-label": "change date",

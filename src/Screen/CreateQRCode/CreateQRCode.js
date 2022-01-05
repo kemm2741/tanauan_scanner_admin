@@ -122,6 +122,7 @@ function CreateQRCode() {
     name: "",
     middleName: "",
     lastName: "",
+    category: "",
     sex: "",
     barangay: "",
     zone: "",
@@ -195,6 +196,7 @@ function CreateQRCode() {
       lastName,
       sex,
       barangay,
+      category,
       zone,
       age,
       phoneNumber,
@@ -236,12 +238,12 @@ function CreateQRCode() {
       return Swal.fire("Error ", "Please enter sex", "error");
     }
 
-    // if (age === "") {
-    //   return Swal.fire("Error ", "Please enter your age", "error");
-    // }
-
     if (barangay === "") {
       return Swal.fire("Error ", "Please enter your barangay", "error");
+    }
+
+    if (category === "") {
+      return Swal.fire("Error ", "Please enter category", "error");
     }
 
     if (zone === "") {
@@ -310,7 +312,8 @@ function CreateQRCode() {
     }
 
     // Reset DATA
-    setUserData(initalState);
+    console.log(initalState);
+    // setUserData(initalState);
   };
 
   const calculateAge = (date) => {
@@ -503,6 +506,46 @@ function CreateQRCode() {
                     />
                   </Grid>
 
+                  <Grid xs={12} sm={12} item>
+                    <TextField
+                      value={userData.category}
+                      onChange={handleOnChange}
+                      name="category"
+                      label="Category"
+                      variant="outlined"
+                      fullWidth
+                      select
+                    >
+                      <MenuItem value={"A1 - Health Care Worker"}>
+                        A1 - Health Care Worker
+                      </MenuItem>
+                      <MenuItem
+                        value={"A1-9 - Household Member of Healthcare Worker"}
+                      >
+                        A1-9 - Household Member of Healthcare Worke
+                      </MenuItem>
+                      <MenuItem value={"OFW"}>OFW</MenuItem>
+                      <MenuItem value={"A2 - Seniors"}>A2 - Seniors</MenuItem>
+                      <MenuItem value={"A3 - Persons with Comorbidities"}>
+                        A3 - Persons with Comorbidities
+                      </MenuItem>
+                      <MenuItem
+                        value={
+                          "A4 - Non-Medical Frontliners or Essential Worker"
+                        }
+                      >
+                        A4 - Non-Medical Frontliners or Essential Worker
+                      </MenuItem>
+                      <MenuItem value={"A5 - Indigent (Mahirap)"}>
+                        A5 - Indigent (Mahirap)
+                      </MenuItem>
+
+                      <MenuItem value={"A6 - General Public"}>
+                        A6 - General Public
+                      </MenuItem>
+                    </TextField>
+                  </Grid>
+
                   <Grid xs={12} sm={8} item>
                     <MuiPickersUtilsProvider utils={MomentUtils}>
                       <DatePicker
@@ -569,7 +612,7 @@ function CreateQRCode() {
                       value={userData.email}
                       onChange={handleOnChange}
                       name="email"
-                      label="Gmail"
+                      label="Email"
                       variant="outlined"
                       fullWidth
                     />
@@ -584,6 +627,7 @@ function CreateQRCode() {
                         format="MM/dd/yyyy"
                         value={selectedBirthDay}
                         onChange={handleChangeBirthDay}
+                        variant="outlined"
                         KeyboardButtonProps={{
                           "aria-label": "change date",
                         }}
