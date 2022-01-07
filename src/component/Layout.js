@@ -232,7 +232,7 @@ const Layout = ({ children }) => {
           <ListItemIcon>
             <FaUsers size={25} />
           </ListItemIcon>
-          <ListItemText primary="Users" />
+          <ListItemText primary="Registered Users" />
           {openDropDown ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={openDropDown} timeout="auto" unmountOnExit>

@@ -139,7 +139,7 @@ function CreateQRCode() {
     html2canvas(document.querySelector("#react-qrcode-logo-div")).then(
       (canvas) => {
         const link = document.createElement("a");
-        link.download = `${qrCode.name} ${qrCode.lastName}-tanauan-vaccinator.png`;
+        link.download = `${qrCode.name} ${qrCode.lastName}-tanauan-qrcode.png`;
         link.href = canvas.toDataURL();
         link.click();
       }
@@ -306,6 +306,7 @@ function CreateQRCode() {
       setQrCode(qrUserDetails);
       setOpen(true);
       setIsLoading(false);
+      setUserData(initalState);
     } catch (error) {
       Swal.fire("Error Registering", `Something went wrong`, "error");
       setIsLoading(false);

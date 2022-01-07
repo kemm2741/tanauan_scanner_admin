@@ -129,6 +129,11 @@ const ActiveUser = () => {
             title: "Is Vaccinataed",
             field: "isVaccinated.Vaccinated",
           },
+
+          {
+            title: "Category",
+            field: "category",
+          },
         ]}
       />
     </div>

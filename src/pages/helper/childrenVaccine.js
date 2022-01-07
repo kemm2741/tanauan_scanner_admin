@@ -11,6 +11,8 @@ import MaterialTable from "material-table";
 const VaccineHelper = ({ id, title, usersArray }) => {
   const [users, setUsers] = useState(usersArray);
 
+  console.log(usersArray);
+
   return (
     <div style={{ padding: "50px 40px", backgroundColor: "#ebe9e9" }}>
       <MaterialTable
@@ -26,6 +28,7 @@ const VaccineHelper = ({ id, title, usersArray }) => {
             lookup: { Male: "Male", Female: "Female" },
           },
           { title: "Age", field: "age" },
+          { title: "Barangay", field: "brgy.barangayName" },
         ]}
         data={users}
         options={{

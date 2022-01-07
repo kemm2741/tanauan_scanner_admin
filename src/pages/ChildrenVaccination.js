@@ -58,7 +58,6 @@ const ChildrenVaccination = () => {
   const [columns, setColumns] = useState([
     { title: "Name", field: "vaccineName" },
     { title: "Vaccine Use", field: "vaccineUse" },
-    { title: "Vaccination Barangay", field: "barangay" },
     {
       title: "Scheduled Date",
       type: "date",

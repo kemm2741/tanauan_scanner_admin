@@ -134,13 +134,10 @@ const ArchievedUser = () => {
             title: "Zone",
             field: "zone",
           },
+
           {
-            title: "Vaccine Name",
-            field: "isVaccinated.vaccine",
-          },
-          {
-            title: "Is Vaccinataed",
-            field: "isVaccinated.Vaccinated",
+            title: "Category",
+            field: "category",
           },
         ]}
       />
