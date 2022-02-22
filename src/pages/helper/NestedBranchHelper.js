@@ -4,15 +4,13 @@ import axios from "axios";
 
 import MaterialTable from "material-table";
 
-const NestedBranchHelper = ({ rowData }) => {
+const NestedBranchHelper = ({ branchDetails, rowData }) => {
   const [data, setData] = useState(rowData.value);
-
-  console.log(rowData);
 
   return (
     <div style={{ padding: "40px 30px", backgroundColor: "#ebe9e9" }}>
       <MaterialTable
-        title="Tme in users"
+        title={`${branchDetails.branchName} Time-in users at ${rowData.date}`}
         columns={[
           {
             title: "First Name",
@@ -48,7 +46,7 @@ const NestedBranchHelper = ({ rowData }) => {
         ]}
         data={data}
         options={{ sorting: true, exportButton: true, search: true }}
-      />{" "}
+      />
     </div>
   );
 };

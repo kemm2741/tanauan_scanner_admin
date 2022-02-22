@@ -10,7 +10,7 @@ import MaterialTable from "material-table";
 // Import
 import NestedBranchHelper from "../helper/NestedBranchHelper";
 
-const BranchHelper = ({ id }) => {
+const BranchHelper = ({ id, branchDetails }) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -35,15 +35,18 @@ const BranchHelper = ({ id }) => {
 
   const fetchBranchTimein = async () => {
     try {
+      setIsLoading(true);
       const { data } = await axios.post(
         `${baseURL}/timein/get-branch-time-in-information`,
         { branch_Id: id }
       );
       setData(data.timeinUser);
 
-      console.log(data.timeinUser);
+      console.log(data);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   };
 
@@ -54,11 +57,17 @@ const BranchHelper = ({ id }) => {
   return (
     <div style={{ padding: "50px 40px", backgroundColor: "#ebe9e9" }}>
       <MaterialTable
-        title={"Time in date"}
+        isLoading={isLoading}
+        title={`Dates time-in in ${branchDetails.branchName}`}
         columns={[{ title: "Date", field: "date" }]}
         data={data}
         detailPanel={(rowData) => {
-          return <NestedBranchHelper rowData={rowData} />;
+          return (
+            <NestedBranchHelper
+              branchDetails={branchDetails}
+              rowData={rowData}
+            />
+          );
         }}
         options={{ sorting: true, exportButton: true, search: true }}
       />

@@ -197,7 +197,7 @@ const Branches = () => {
           columns={columns}
           data={data}
           detailPanel={(rowData) => {
-            return <BranchHelper data={rowData} id={rowData._id} />;
+            return <BranchHelper branchDetails={rowData} id={rowData._id} />;
           }}
           actions={[
             {

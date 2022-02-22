@@ -90,7 +90,7 @@ const App = () => {
             <ActiveUser />
           </PrivateRoute>
 
-          {/* ------------------- RHU Routes ---------- */}
+          {/* ------------- RHU Routes ---------- */}
           <PrivateRoute path="/rhuUser">
             <RhuUser />
           </PrivateRoute>
